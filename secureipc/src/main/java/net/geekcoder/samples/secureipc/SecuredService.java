@@ -18,8 +18,9 @@ public class SecuredService extends Service {
                 // Each protected function should check the caller identity
                 mTrustedContext.checkCallerIfNeeded(SecuredService.this);
 
-                // The implementation can follow; but can delete to the outer class
-                specialFunctionInternal(param1);
+                TrustedContext.runasSelf(() -> {
+                    specialFunctionInternal(param1);
+                });
             }
         };
     }
