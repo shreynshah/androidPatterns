@@ -16,10 +16,19 @@ class TrustedContext {
         }
     }
 
-    public static void runasSelf(IAction action) {
+    public static void runAsSelf(IAction action) {
         long token = Binder.clearCallingIdentity();
         try {
             action.doWork();
+        } finally {
+            Binder.restoreCallingIdentity(token);
+        }
+    }
+
+        public static <T> T runAndReturAsSelf(IActionWithResult<T> action) {
+        long token = Binder.clearCallingIdentity();
+        try {
+            return action.doWork();
         } finally {
             Binder.restoreCallingIdentity(token);
         }

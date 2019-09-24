@@ -17,13 +17,17 @@ public class SecuredContentProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] strings, String s, String[] strings1, String s1) {
         mTrustedContext.checkCallerIfNeeded(this.getContext());
-        return null;
+        return TrustedContext.runAndReturAsSelf(() -> {
+            return null;
+        });
     }
 
     @Override
     public String getType(Uri uri) {
         mTrustedContext.checkCallerIfNeeded(this.getContext());
-        return null;
+        return TrustedContext.runAndReturAsSelf(() -> {
+            return null;
+        });
     }
 
     @Override
@@ -35,12 +39,16 @@ public class SecuredContentProvider extends ContentProvider {
     @Override
     public int delete(Uri uri, String s, String[] strings) {
         mTrustedContext.checkCallerIfNeeded(this.getContext());
-        return 0;
+        return TrustedContext.runAndReturAsSelf(() -> {
+            return 0;
+        });
     }
 
     @Override
     public int update(Uri uri, ContentValues contentValues, String s, String[] strings) {
         mTrustedContext.checkCallerIfNeeded(this.getContext());
-        return 0;
+        return TrustedContext.runAndReturAsSelf(() -> {
+            return 0;
+        });
     }
 }
